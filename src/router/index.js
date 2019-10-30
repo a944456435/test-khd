@@ -8,6 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'manager',
+    redirect:'/user',
     component: Manager,
     children:[{
       path:"home",

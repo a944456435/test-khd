@@ -4,13 +4,23 @@ export default {
   namespaced: true,
   state: {
     visible: false,
-    orders: [],
+    orders: [],//分页的订单信息
+    allOrders:[],//全部的订单信息
     queryResult: {},
     formLabelWidth: '80px',
     title: '添加订单信息'
   },
   getters: {
-
+  statusDpd:(state)=>{
+    return function(status){
+      if(status){
+        return state.allOrders.filter((item)=>item.status==status)
+      }else{
+          return state.allOrders;
+      }
+     
+      }
+    }
   },
   mutations: {
     showModal(state) {
@@ -29,6 +39,9 @@ export default {
       state.queryResult = queryResult
       state.orders = queryResult.list
     },
+    refreshAllOrders(state, data) {
+      state.allOrders = data
+    },
     setTitle(state, title) {
       state.title = title
     }
@@ -46,7 +59,7 @@ export default {
       const response = await get('/order/findAll')
       // alert(JSON.stringify(response));
       // 2. 将顾客信息设置到state.orders中
-      context.commit('refreshOrders', response.data)
+      context.commit('refreshAllOrders', response.data)
     },
     async deleteOrderById({ dispatch }, id) {
       // 1. 删除顾客信息
@@ -70,6 +83,11 @@ export default {
     async query({ commit, dispatch }, search) {
       const response = await post('/order/queryPage', search)
       commit('refreQuery', response.data)
+    },
+    //查询订单信息，返回列表数据
+    async queryBasic({commit,dispath},customerId){
+      const response=await get('/order/queryBasic',{customerId})
+      commit("refreshQueryBasic",response.data)
     }
   }
 }

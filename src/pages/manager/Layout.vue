@@ -1,6 +1,12 @@
 <template>
     <div class="layout">
+        <!-- 顶部 -->
+        <van-nav-bar title="e洁家政" left-text="返回" left-arrow @click="back">
+            <van-icon name="search" slot="right" />
+        </van-nav-bar>
+        <!-- 内容部分 -->
         <router-view/>
+        <!-- 底部部分 -->
        <div>
             <!-- <router-link to='/home'>首页</router-link>  
             <router-link to='/order'>订单</router-link>
@@ -28,6 +34,9 @@ export default {
   methods:{
       tabChangeHandler(path){
           this.$router.push({path})
+      },
+      back(){
+          this.$router.go(-1)
       }
   },
   created(){
