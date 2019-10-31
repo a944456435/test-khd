@@ -6,35 +6,38 @@
     </van-nav-bar>
     <div class="from-login">
         <van-cell-group>
-     <van-row>
-       <van-col>
-          <van-field
-        v-model="form.username"
-        required
-        clearable
-        label="用户名"
-        right-icon="question-o"
-        placeholder="请输入用户名"
-        @click-right-icon="$toast('忘记账号密码请联系我们：#tel:133333333')"
-      />
+          <van-row>
+            <van-col>
+                <van-field
+              v-model="form.username"
+              required
+              clearable
+              label="用户名"
+              right-icon="question-o"
+              placeholder="请输入用户名"
+              @click-right-icon="$toast('忘记账号密码请联系我们：#tel:133333333')"
+            />
        </van-col>
      </van-row>
 
-    <van-row>
-      <van-col>
-          <van-field
-            v-model="form.password"
-            type="password"
-            label="密码"
-            placeholder="请输入密码"
-            required/>  
-      </van-col>  
-    </van-row>
+      <van-row>
+        <van-col>
+            <van-field
+              v-model="form.password"
+              type="password"
+              label="密码"
+              placeholder="请输入密码"
+              required/>  
+        </van-col>  
+      </van-row>
   </van-cell-group>
-  {{form}}
     </div>
-    <van-button size="small" @click="loginHander">登陆</van-button>  
+    <!-- <van-button size="small" @click="loginHander">登陆</van-button>   -->
+     <div style="text-align:center">
+       <van-button plain  type="default" @click="loginHander">登录</van-button>
+      </div>
   </div>
+  
 </template>
 
 <script>
@@ -75,6 +78,8 @@ export default {
 
 <style scoped>
   .from-login{
+    width:80%;
+    margin-top:20%;
     margin: 0 auto;
   }
 </style>

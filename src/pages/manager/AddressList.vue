@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>增加地址页</h2>token：{{token}}顾客id：{{info.id}}顾客地址：{{address}}
+        <h2>增加地址页</h2>token：{{token}}
         <van-address-list
   :list="list"
   disabled-text="以下地址超出配送范围"
@@ -37,8 +37,7 @@ export default {
         onAdd() {
             //Toast('新增地址');
             this.$router.push({
-                path:'/manager/addressedit'
-                // name:'addressList'
+                path:'/addressedit'
             })
             console.log('新增地址')
         },

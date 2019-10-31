@@ -32,10 +32,9 @@
       </div>  
         </van-collapse-item>
       </van-collapse> -->
-      <div class="line" @click="toAddressListHandler">常用地址</div>
+      <div class="line" @click="toAddressListHandler(token)">常用地址</div>
       <div class="line" @click="loginHander">登陆</div>
       <div class="line" @click="logoutHandler">退出</div>
- {{token}}{{info}}
   </div>
 </template>
 
@@ -59,8 +58,12 @@ export default {
     loginHander(){
       this.$router.push('/login')
     },
-    toAddressListHandler(){
-      
+    toAddressListHandler(token){
+      this.$router.push({
+        path:'/addressList',
+        // name:'addressList',
+        query:{token}
+      });
     }
   },
   created(){
