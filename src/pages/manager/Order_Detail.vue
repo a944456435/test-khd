@@ -1,7 +1,7 @@
 <template>
     <div>
         <whq-fullLayout title="订单详情">
-            <van-cell  icon="location-o" is-link>
+            <van-cell  icon="location-o" is-link  @click="goAddressList">
             <template slot="title">
                 <span class="custom-title">{{address[0].province}}{{address[0].city}}{{address[0].area}}{{address[0].address}}</span>
                 <van-tag type="danger" style="margin-left:50px">常用地址</van-tag>
@@ -52,6 +52,9 @@ export default {
            //保存订单并清空购物车
            this.saveOrder();
            this.$router.push({path:'/order'})
+       },
+       goAddressList(){
+           this.$router.push({path:'/addressList'})
        }
     },
   

@@ -67,16 +67,10 @@ const routes = [
     name: 'area',
     component: () => import( '../components/Area')
   },
-  //测试
-  // {
-  //   path: '/full',
-  //   name: 'full',
-  //   component: () => import( '@/components/FullLayout')
-  // },
 ]
 
 const router = new VueRouter({
-  // mode: 'history',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
