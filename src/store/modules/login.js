@@ -21,6 +21,7 @@ export default{
             let response=await post_json('/user/login',form)
             let info=response.data.token;
             dispatch('getInfo',info)
+            console.log("token=",info)
         }
     }
 }

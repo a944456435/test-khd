@@ -1,20 +1,16 @@
 // import request from '@/utils/request'
-import { get, post, post_array } from '@/http/axios'
+import { get, post, post_array,post_obj_array } from '@/http/axios'
 export default {
   namespaced: true,
   state: {
-    visible: false,
     orders: [],//分页的订单信息
     allOrders:[],//全部的订单信息
-    queryResult: {},
-    formLabelWidth: '80px',
-    title: '添加订单信息'
   },
   getters: {
   statusDpd:(state)=>{
     return function(status){
       if(status){
-        return state.allOrders.filter((item)=>item.status==status)
+        return state.orders.filter((item)=>item.status==status)
       }else{
           return state.allOrders;
       }
@@ -23,34 +19,20 @@ export default {
     }
   },
   mutations: {
-    showModal(state) {
-      state.visible = true
-    },
-    closeModal(state) {
-      state.visible = false
-    },
-    // 需要接受一个参数，这个参数就是orders
-    refreshOrders(state, orders) {
-      console.log('state->', state)
-      state.orders = orders
-    },
     // 刷新分页查询结果的数据
-    refreQuery(state, queryResult) {
-      state.queryResult = queryResult
-      state.orders = queryResult.list
+    refreQuery(state, query) {
+      state.orders = query
     },
+
     refreshAllOrders(state, data) {
       state.allOrders = data
     },
-    setTitle(state, title) {
-      state.title = title
-    }
   },
   actions: {
-    async batchDeleteOrders(context, ids) {
-      const response = await post_array('/order/batchDelete', { ids }) // //参数为对象
-      context.dispatch('findAllOrders')
-      return response
+    // 顾客确认收单
+    async confirmOrder({ dispatch }, orderId) {
+      await get('/order/confirmOrder', { orderId })
+      dispatch('query')
     },
     // async findAllOrders({commit,dispatch,getters,state}){
     async findAllOrders(context) {
@@ -69,25 +51,24 @@ export default {
       // 3. 提示成功
       return response
     },
-    async saveOrder({ dispatch, commit }, order) {
-      // 1. 提交请求
-      const response = await post('/order/save', order)
-      // 2. 关闭模态
-      commit('closeModal')
-      // 3. 刷新页面
-      //   dispatch("findAllOrders");
-      // 4. 提示成功 react
-      return response
-    },
     // 分页查询
-    async query({ commit, dispatch }, search) {
-      const response = await post('/order/queryPage', search)
+    async query({ commit, dispatch }) {
+      const response = await get('/order/query')
       commit('refreQuery', response.data)
     },
-    //查询订单信息，返回列表数据
-    async queryBasic({commit,dispath},customerId){
-      const response=await get('/order/queryBasic',{customerId})
-      commit("refreshQueryBasic",response.data)
+    //保存订单
+    async saveOrder({commit,rootState}){
+      //组合数据
+      let data={
+        customerId:rootState.user.info.id,
+        addressId:rootState.address.address[0].id,
+        orderLines:Array.from(rootState.shopCar.orderLines.values())
+      }
+      //调接口
+      let response=await post_obj_array('/order/save',data)
+      //清空购物车,访问外部的状态机中的突变
+      commit('shopCar/clearShopCar',null,{root:true})
+      return response;
     }
   }
 }

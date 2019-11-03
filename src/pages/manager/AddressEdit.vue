@@ -1,5 +1,6 @@
 <template>
     <div>新增加地址{{address_form}}
+      <whq-fullLayout title="添加地址">
         <!-- 增加地址信息 -->
         <van-address-edit v-model="address_form"
             :area-list="areaList"
@@ -13,6 +14,7 @@
             @change-detail="onChangeDetail"
             />
         <!-- /增加地址信息 -->
+      </whq-fullLayout>
     </div>
 </template>
 <script>

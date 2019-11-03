@@ -4,7 +4,7 @@ import qs from 'qs'
 // 全局配置
 // axios.defaults.headers.common["token"] = ""
 // axios.defaults.headers.post["Content-Type"] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.baseURL = 'http://39.105.77.125:6677'
+axios.defaults.baseURL = 'http://39.105.142.28:6677'
 
 // Add a response interceptor
 axios.interceptors.response.use(function(response) {
@@ -26,6 +26,21 @@ export function post(url, data) {
     method: 'post',
     url,
     data: qs.stringify(data),
+    timeout: 10000,
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  })
+}
+/**
+ * 提交post请求 发送的数据为查询字符串，对象中嵌套数组
+*/
+export function post_obj_array(url, data) {
+  return axios({
+    method: 'post',
+    url,
+    data: qs.stringify(data,{allowDots:true}),
     timeout: 10000,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
@@ -61,6 +76,7 @@ export function post_json(url, data) {
     timeout: 10000
   })
 }
+
 export function get(url, params) {
   return axios({
     method: 'get',

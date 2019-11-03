@@ -30,8 +30,8 @@ export default{
         //得到用户信息
         async getInfo({commit},token){
             let response=await get('/user/info',{token})
-            commit('refreshInfo',response.data)
-            console.log(response)
+            await commit('refreshInfo',response.data)
+            return response;
         },
         //退出
         async logout({commit}){

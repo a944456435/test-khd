@@ -13,7 +13,8 @@ export default{
         }
     },
     actions:{
-        async findAddressByCustomerId({commit,dispatch},id){
+        async findAddressByCustomerId({commit,rootState}){
+            let id=rootState.user.info.id
             let response=await get('/address/findByCustomerId',{id})
             commit('refreshAddress',response.data);
             return response;

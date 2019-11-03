@@ -1,12 +1,16 @@
 <template>
     <div>
-        <h2>增加地址页</h2>token：{{token}}
-        <van-address-list
-  :list="list"
-  disabled-text="以下地址超出配送范围"
-  @add="onAdd"
-  @edit="onEdit"
-/>
+        <whq-fullLayout title="我的地址">
+            <!-- <van-address-list
+            :list="list"
+            disabled-text="以下地址超出配送范围"
+            @add="onAdd"
+            @edit="onEdit"
+            /> -->
+            <whq-addressItem v-for="addr in address" :key="addr.id" :data="address[0]"></whq-addressItem>
+            <div class="bottom" @click="onAdd">新增地址</div>
+        </whq-fullLayout>
+       
     </div>
 </template>
 <script>
@@ -35,11 +39,10 @@ export default {
         ...mapMutations('user',['refreshInfo']),
         ...mapActions('user',['getInfo']),
         onAdd() {
-            //Toast('新增地址');
+            this.$toast('新增地址');
             this.$router.push({
-                path:'/addressedit'
+                path:'/addressEdit'
             })
-            console.log('新增地址')
         },
 
         onEdit(item, index) {
@@ -55,10 +58,20 @@ export default {
 
     },
     created(){
-         //this.token=this.$route.query.token;
-         this.findAddressByCustomerId(this.info.id);
+         this.findAddressByCustomerId();
          this.pushList();
-         this.getInfo(this.token);
     }
 }
 </script>
+<style  scoped>
+    .bottom{
+        width:100%;
+        background-color: red;
+        color: #000000;
+        position: absolute;
+        text-align: center;
+        height: 3em;
+        line-height: 3em;
+        margin-bottom: 0;
+    }
+</style>

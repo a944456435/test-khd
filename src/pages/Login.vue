@@ -1,9 +1,17 @@
 <template>
   <div class="login">
   <!-- 顶部 -->
-    <van-nav-bar title="e洁家政" left-text="返回" left-arrow @click="back">
+    <div>
+      <van-nav-bar title="e洁家政" left-text="返回" left-arrow @click-left="back">
         <van-icon name="search" slot="right" />
     </van-nav-bar>
+    </div>
+    <!-- <van-row>
+        <img src="@/assets/images/ej.png" alt="" width="100%">
+      </van-row> -->
+      <div class="title">
+        家政服务
+      </div>
     <div class="from-login">
         <van-cell-group>
           <van-row>
@@ -40,6 +48,8 @@
   
 </template>
 
+
+
 <script>
 import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 export default {
@@ -66,7 +76,7 @@ export default {
     loginHander(){
       this.login(this.form)
       .then(()=>{
-        this.$router.push('/user')
+        this.$router.push('/home')
       })
     },
     back(){
@@ -77,6 +87,19 @@ export default {
 </script>
 
 <style scoped>
+.title{
+  width: 100px;
+  height: 100px;
+  line-height: 50px;
+  border-radius: 50%;
+  border: 1px solid #efefef;
+  margin: 0 auto;
+  color:#efefef;
+  background-color: lightblue;
+  font-weight: bold;
+  margin-bottom: 1em;
+  font-size: 1.5em
+}
   .from-login{
     width:80%;
     margin-top:20%;
