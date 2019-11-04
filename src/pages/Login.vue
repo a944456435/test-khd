@@ -1,16 +1,19 @@
 <template>
   <div class="login">
   <!-- 顶部 -->
-    <div>
+    <!-- <div>
       <van-nav-bar title="e洁家政" left-text="返回" left-arrow @click-left="back">
         <van-icon name="search" slot="right" />
     </van-nav-bar>
-    </div>
+    </div> -->
     <!-- <van-row>
         <img src="@/assets/images/ej.png" alt="" width="100%">
       </van-row> -->
-      <div class="title">
-        家政服务
+      <div class="login">
+        <div class="header">
+          <div class="logo">jz</div>
+          <div class="title">家政服务-顾客端</div>
+        </div>
       </div>
     <div class="from-login">
         <van-cell-group>
@@ -87,7 +90,23 @@ export default {
 </script>
 
 <style scoped>
-.title{
+.header{
+  height:90px;
+  padding:50px;
+  color:white;
+  background-color: lightsteelblue;
+  text-align: center
+}
+.logo{
+  width:40px;
+  height:40px;
+  border:1px solid #efefef;
+  border-radius: 50%;
+  line-height: 50px;
+  margin:0 auto;
+  margin-bottom:1em
+}
+/* .title{
   width: 100px;
   height: 100px;
   line-height: 50px;
@@ -99,7 +118,7 @@ export default {
   font-weight: bold;
   margin-bottom: 1em;
   font-size: 1.5em
-}
+} */
   .from-login{
     width:80%;
     margin-top:20%;
